@@ -1,6 +1,6 @@
 # pearmill-frontend
 
-##Clone the repository for the frontend
+## Clone the repository for the frontend using git clone
 
 **How To Install** 
 1. Clone the repo into your folder
