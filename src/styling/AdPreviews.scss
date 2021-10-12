@@ -1,0 +1,33 @@
+.ad-preview-container {
+  padding: 30px;
+  margin: auto;
+  width: 100%;
+
+  .iframe-views {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
+  .view-select-container {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 25px;
+  }
+
+  .radio-select {
+    display: flex;
+    flex-direction: column;
+
+    .radio-input {
+      padding-right: 10px;
+      padding-bottom: 10px;
+    }
+  }
+}
+
+Button {
+  margin-bottom: 10px;
+}
