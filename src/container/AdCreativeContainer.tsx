@@ -1,6 +1,6 @@
 import React from "react";
 import "../styling/AdCreativeContainer.scss";
-import AdPreviews from "../components/AdSideBySideView";
+import AdPreviews from "../components/AdPreviews";
 class AdCreativeContainer extends React.Component {
   render() {
     return (

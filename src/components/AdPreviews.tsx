@@ -1,7 +1,6 @@
 import React from "react";
 import "../styling/AdPreviews.scss";
 import { Button } from "semantic-ui-react";
-import AdCreativeCard from "./AdCreativeCard";
 import { AdCreativeModel } from "../models/AdCreative.model";
 
 const creativesData = "https://platform.pearmill.com/tests/creatives";
@@ -12,6 +11,7 @@ class AdPreviews extends React.Component {
     selectedViewOption: "DESKTOP_FEED_STANDARD",
     adIds: [],
     adData: [],
+    iFrames: [],
   };
 
   componentDidMount() {
@@ -46,15 +46,26 @@ class AdPreviews extends React.Component {
     await fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        return this.createDataPreviews(data.data);
+        this.setState({ iFrames: data.data });
+      })
+      .catch((error) => {
+        console.log(error);
       });
   }
 
-  createDataPreviews(data: any[]) {
-    console.log(data);
-    return data.map((preview) => {
-      return <div> {preview.iframe_preview}</div>;
+  renderIframes() {
+    const iFrames: any[] = this.state.iFrames;
+
+    let iFramePreviews = iFrames.map((iFrameInstance, index) => {
+      return (
+        <div
+          key={index}
+          dangerouslySetInnerHTML={{ __html: iFrameInstance.iframe_preview }}
+        />
+      );
     });
+
+    return iFramePreviews;
   }
 
   render() {
@@ -104,9 +115,10 @@ class AdPreviews extends React.Component {
             </label>
           </div>
         </div>
-
-        <div className="iframe-views"></div>
-        <Button></Button>
+        {this.state.iFrames.length > 0 ? (
+          <div className="iframe-views">{this.renderIframes()}</div>
+        ) : null}
+        <Button>Update View</Button>
       </div>
     );
   }
