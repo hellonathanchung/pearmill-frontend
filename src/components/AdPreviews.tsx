@@ -70,7 +70,7 @@ class AdPreviews extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="ad-preview-container">
         <h1>Please select a view</h1>
         <div className="view-select-container">
           <div
@@ -115,10 +115,15 @@ class AdPreviews extends React.Component {
             </label>
           </div>
         </div>
+        <Button
+          className="ui violet button"
+          onClick={() => this.fetchiFrames()}
+        >
+          Update View
+        </Button>
         {this.state.iFrames.length > 0 ? (
           <div className="iframe-views">{this.renderIframes()}</div>
         ) : null}
-        <Button>Update View</Button>
       </div>
     );
   }

@@ -1,24 +1,33 @@
-.scrolling-container {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
+.ad-preview-container {
+  padding: 30px;
+  margin: auto;
+  width: 100%;
 
-  .card {
-    display: inline-block;
+  .iframe-views {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
+  .view-select-container {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 25px;
+  }
+
+  .radio-select {
+    display: flex;
+    flex-direction: column;
+
+    .radio-input {
+      padding-right: 10px;
+      padding-bottom: 10px;
+    }
   }
 }
 
-.view-select-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.radio-select {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
-
-  .radio-input {
-    padding-right: 10px;
-  }
+Button {
+  margin-bottom: 10px;
 }
