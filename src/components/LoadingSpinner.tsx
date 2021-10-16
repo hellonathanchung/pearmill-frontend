@@ -14,9 +14,9 @@ let randomStrings = {
 const LoadingSpinner = () => {
   function grabRandomString() {
     const values = Object.values(randomStrings);
-    const prop = values[Math.floor(Math.random() * values.length)];
+    const phrase = values[Math.floor(Math.random() * values.length)];
 
-    return prop;
+    return phrase;
   }
   return (
     <div className="Loader">
