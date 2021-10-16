@@ -12,6 +12,7 @@ class AdPreviews extends React.Component {
     selectedViewOption: "DESKTOP_FEED_STANDARD",
     adIds: [],
     adData: [],
+    iFramesLoading: false,
     iFrames: [],
   };
 
@@ -59,7 +60,6 @@ class AdPreviews extends React.Component {
 
   renderIframes() {
     const iFrames: any[] = this.state.iFrames;
-
     let iFramePreviews = iFrames.map((iFrameInstance, index) => {
       const formatPreview = this.formatIframePreviews(
         iFrameInstance.iframe_preview
@@ -89,7 +89,7 @@ class AdPreviews extends React.Component {
             <img className="ad-image" src={thumbnail} alt="" />
           </td>
           <td> {ad_name}</td>
-          <td> {spend}</td>
+          <td>${spend}</td>
         </tr>
       );
     });
@@ -102,21 +102,25 @@ class AdPreviews extends React.Component {
   render() {
     return (
       <div className="ad-preview-container">
+        <Button className="ui violet button" onClick={() => this.toggleTable()}>
+          Toggle Table
+        </Button>
         {this.state.adData.length > 0 ? (
           <div>
-            <table className="ad-creative-table">
-              <tr>
-                <th>Image </th>
-                <th>Name </th>
-                <th>Spend </th>
-              </tr>
-              <tbody>{this.renderTableData()}</tbody>
-            </table>
+            {this.state.open ? (
+              <table className="ad-creative-table">
+                <tr>
+                  <th>Image </th>
+                  <th>Name </th>
+                  <th>Spend </th>
+                </tr>
+                <tbody>{this.renderTableData()}</tbody>
+              </table>
+            ) : null}
           </div>
         ) : (
           <LoadingSpinner />
         )}
-        <Button onClick={() => this.toggleTable()}> Toggle Table</Button>
         <h1>Please select a view</h1>
         <div className="view-select-container">
           <div
@@ -169,7 +173,9 @@ class AdPreviews extends React.Component {
         </Button>
         {this.state.iFrames.length > 0 ? (
           <div className="iframe-views">{this.renderIframes()}</div>
-        ) : null}
+        ) : (
+          <LoadingSpinner />
+        )}
       </div>
     );
   }
