@@ -110,11 +110,13 @@ class AdPreviews extends React.Component {
           <div>
             {this.state.open ? (
               <table className="ad-creative-table">
-                <tr>
-                  <th>Image </th>
-                  <th>Name </th>
-                  <th>Spend </th>
-                </tr>
+                <tbody>
+                  <tr>
+                    <th>Image </th>
+                    <th>Name </th>
+                    <th>Spend </th>
+                  </tr>
+                </tbody>
                 <tbody>{this.renderTableData()}</tbody>
               </table>
             ) : null}
