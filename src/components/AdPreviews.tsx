@@ -81,11 +81,11 @@ class AdPreviews extends React.Component {
   }
 
   renderTableData() {
-    return this.state.adData.map((adCreative) => {
-      const { thumbnail, ad_id, spend, ad_name } = adCreative;
+    return this.state.adData.map((adCreative, index) => {
+      const { thumbnail, spend, ad_name } = adCreative;
 
       return (
-        <tr key={ad_id}>
+        <tr key={index}>
           <td>
             <img className="ad-image" src={thumbnail} alt="" />
           </td>
@@ -110,11 +110,13 @@ class AdPreviews extends React.Component {
           <div>
             {this.state.open ? (
               <table className="ad-creative-table">
-                <tr>
-                  <th>Image </th>
-                  <th>Name </th>
-                  <th>Spend </th>
-                </tr>
+                <tbody>
+                  <tr>
+                    <th>Image </th>
+                    <th>Name </th>
+                    <th>Spend </th>
+                  </tr>
+                </tbody>
                 <tbody>{this.renderTableData()}</tbody>
               </table>
             ) : null}
