@@ -3,6 +3,11 @@
   margin: auto;
   width: 100%;
 
+  .ad-creative-table {
+    margin: auto;
+    padding: 30px;
+  }
+
   .iframe-views {
     display: flex;
     flex-direction: row;
@@ -26,6 +31,15 @@
       padding-bottom: 10px;
     }
   }
+}
+
+iframe {
+  background: #000;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border: none;
+  height: 100vh;
 }
 
 Button {
