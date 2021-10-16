@@ -6,7 +6,7 @@
   .ad-creative-table {
     margin: auto;
     padding: 30px;
-    width: 75%;
+    width: 50%;
   }
 
   .iframe-views {
@@ -15,6 +15,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    padding-top: 25px;
   }
 
   .view-select-container {
@@ -22,15 +23,14 @@
     flex-direction: row;
     padding-bottom: 25px;
   }
+}
 
-  .radio-select {
-    display: flex;
-    flex-direction: column;
+.radio-select {
+  display: flex;
+  flex-direction: column;
 
-    .radio-input {
-      padding-right: 10px;
-      padding-bottom: 10px;
-    }
+  .radio-input {
+    margin-right: 10px;
   }
 }
 
@@ -41,6 +41,8 @@ iframe {
   overflow-y: hidden;
   border: none;
   height: 100vh;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 Button {

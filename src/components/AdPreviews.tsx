@@ -75,7 +75,6 @@ class AdPreviews extends React.Component {
   formatIframePreviews(iFrameString: string): string {
     let formattedStringArray = iFrameString.split(" ");
     formattedStringArray[4] = 'scrolling= "no"';
-
     return formattedStringArray.join(" ");
   }
 
@@ -103,7 +102,7 @@ class AdPreviews extends React.Component {
     return (
       <div className="ad-preview-container">
         <Button className="ui violet button" onClick={() => this.toggleTable()}>
-          Toggle Table
+          {this.state.open ? "Close Table" : "Open Table"}
         </Button>
         {this.state.adData.length > 0 ? (
           <div>
