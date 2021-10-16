@@ -12,7 +12,7 @@ class AdPreviews extends React.Component {
     selectedViewOption: "DESKTOP_FEED_STANDARD",
     adIds: [],
     adData: [],
-    iFramesLoading: false,
+    adDataLoading: false,
     iFrames: [],
   };
 
@@ -22,7 +22,8 @@ class AdPreviews extends React.Component {
       .then((adCreativeData) => this.handleAdData(adCreativeData.data))
       .catch(function (error) {
         console.log(error);
-      });
+      })
+      .finally(() => this.setState({ adDatingLoading: true }));
   }
 
   onChangeValue(event: any) {
@@ -55,7 +56,8 @@ class AdPreviews extends React.Component {
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
+      .finally();
   }
 
   renderIframes() {
@@ -104,7 +106,7 @@ class AdPreviews extends React.Component {
         <Button className="ui violet button" onClick={() => this.toggleTable()}>
           {this.state.open ? "Close Table" : "Open Table"}
         </Button>
-        {this.state.adData.length > 0 ? (
+        {!this.state.adDataLoading ? (
           <div>
             {this.state.open ? (
               <table className="ad-creative-table">
@@ -117,9 +119,7 @@ class AdPreviews extends React.Component {
               </table>
             ) : null}
           </div>
-        ) : (
-          <LoadingSpinner />
-        )}
+        ) : null}
         <h1>Please select a view</h1>
         <div className="view-select-container">
           <div
