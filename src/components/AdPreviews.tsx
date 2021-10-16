@@ -2,22 +2,27 @@ import React from "react";
 import "../styling/AdPreviews.scss";
 import { Button } from "semantic-ui-react";
 import { AdCreativeModel } from "../models/AdCreative.model";
+import LoadingSpinner from "./LoadingSpinner";
 
 const creativesData = "https://platform.pearmill.com/tests/creatives";
 
 class AdPreviews extends React.Component {
   state = {
-    open: false,
+    open: true,
     selectedViewOption: "DESKTOP_FEED_STANDARD",
     adIds: [],
     adData: [],
+    iFramesLoading: false,
     iFrames: [],
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     fetch(creativesData)
       .then((response) => response.json())
-      .then((adCreativeData) => this.handleAdData(adCreativeData.data));
+      .then((adCreativeData) => this.handleAdData(adCreativeData.data))
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   onChangeValue(event: any) {
@@ -27,18 +32,18 @@ class AdPreviews extends React.Component {
     });
   }
 
-  handleAdData(adCreativeData: AdCreativeModel[]) {
+  handleAdData(adCreativeData: AdCreativeModel[]): void {
     this.setState({ adData: adCreativeData });
     this.createAdIdArray(adCreativeData);
   }
 
-  createAdIdArray(adCreativeData: AdCreativeModel[]) {
+  createAdIdArray(adCreativeData: AdCreativeModel[]): void {
     const adIds = adCreativeData.map((adCreative) => adCreative.ad_id);
     this.setState({ adIds });
     this.fetchiFrames();
   }
 
-  async fetchiFrames() {
+  async fetchiFrames(): Promise<void> {
     let selectedView = this.state.selectedViewOption;
     let adIdsArray = this.state.adIds;
     let url = `https://platform.pearmill.com/tests/iframes?ad_ids=${adIdsArray}&format=${selectedView}`;
@@ -55,22 +60,66 @@ class AdPreviews extends React.Component {
 
   renderIframes() {
     const iFrames: any[] = this.state.iFrames;
-
     let iFramePreviews = iFrames.map((iFrameInstance, index) => {
+      const formatPreview = this.formatIframePreviews(
+        iFrameInstance.iframe_preview
+      );
       return (
-        <div
-          key={index}
-          dangerouslySetInnerHTML={{ __html: iFrameInstance.iframe_preview }}
-        />
+        <div key={index} dangerouslySetInnerHTML={{ __html: formatPreview }} />
       );
     });
 
     return iFramePreviews;
   }
 
+  formatIframePreviews(iFrameString: string): string {
+    let formattedStringArray = iFrameString.split(" ");
+    formattedStringArray[4] = 'scrolling= "no"';
+    return formattedStringArray.join(" ");
+  }
+
+  renderTableData() {
+    return this.state.adData.map((adCreative) => {
+      const { thumbnail, ad_id, spend, ad_name } = adCreative;
+
+      return (
+        <tr key={ad_id}>
+          <td>
+            <img className="ad-image" src={thumbnail} alt="" />
+          </td>
+          <td> {ad_name}</td>
+          <td>${spend}</td>
+        </tr>
+      );
+    });
+  }
+
+  toggleTable() {
+    this.setState({ open: !this.state.open });
+  }
+
   render() {
     return (
       <div className="ad-preview-container">
+        <Button className="ui violet button" onClick={() => this.toggleTable()}>
+          {this.state.open ? "Close Table" : "Open Table"}
+        </Button>
+        {this.state.adData.length > 0 ? (
+          <div>
+            {this.state.open ? (
+              <table className="ad-creative-table">
+                <tr>
+                  <th>Image </th>
+                  <th>Name </th>
+                  <th>Spend </th>
+                </tr>
+                <tbody>{this.renderTableData()}</tbody>
+              </table>
+            ) : null}
+          </div>
+        ) : (
+          <LoadingSpinner />
+        )}
         <h1>Please select a view</h1>
         <div className="view-select-container">
           <div
@@ -123,7 +172,9 @@ class AdPreviews extends React.Component {
         </Button>
         {this.state.iFrames.length > 0 ? (
           <div className="iframe-views">{this.renderIframes()}</div>
-        ) : null}
+        ) : (
+          <LoadingSpinner />
+        )}
       </div>
     );
   }

@@ -3,12 +3,19 @@
   margin: auto;
   width: 100%;
 
+  .ad-creative-table {
+    margin: auto;
+    padding: 30px;
+    width: 50%;
+  }
+
   .iframe-views {
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    padding-top: 25px;
   }
 
   .view-select-container {
@@ -16,16 +23,26 @@
     flex-direction: row;
     padding-bottom: 25px;
   }
+}
 
-  .radio-select {
-    display: flex;
-    flex-direction: column;
+.radio-select {
+  display: flex;
+  flex-direction: column;
 
-    .radio-input {
-      padding-right: 10px;
-      padding-bottom: 10px;
-    }
+  .radio-input {
+    margin-right: 10px;
   }
+}
+
+iframe {
+  background: white;
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border: none;
+  height: 100vh;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 Button {
