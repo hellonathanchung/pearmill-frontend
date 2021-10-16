@@ -13,6 +13,7 @@ class AdPreviews extends React.Component {
     adIds: [],
     adData: [],
     adDataLoading: false,
+    iFramesLoading: false,
     iFrames: [],
   };
 
@@ -52,12 +53,15 @@ class AdPreviews extends React.Component {
     await fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ iFrames: data.data });
+        this.setState({
+          iFrames: data.data,
+          iFramesLoading: true,
+        });
       })
       .catch((error) => {
         console.log(error);
       })
-      .finally();
+      .finally(() => this.setState({ iFramesLoading: false }));
   }
 
   renderIframes() {
@@ -172,7 +176,7 @@ class AdPreviews extends React.Component {
         >
           Update View
         </Button>
-        {this.state.iFrames.length > 0 ? (
+        {!this.state.iFramesLoading ? (
           <div className="iframe-views">{this.renderIframes()}</div>
         ) : (
           <LoadingSpinner />
