@@ -50,7 +50,12 @@ class AdPreviews extends React.Component {
     let adIdsArray = this.state.adIds;
     let url = `https://platform.pearmill.com/tests/iframes?ad_ids=${adIdsArray}&format=${selectedView}`;
 
-    await fetch(url)
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         this.setState({
