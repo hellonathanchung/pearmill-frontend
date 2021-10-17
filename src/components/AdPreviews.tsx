@@ -4,7 +4,7 @@ import { Button } from "semantic-ui-react";
 import { AdCreativeModel } from "../models/AdCreative.model";
 import LoadingSpinner from "./LoadingSpinner";
 
-const creativesData = "http://platform.pearmill.com/tests/creatives";
+const creativesData = "https://platform.pearmill.com/tests/creatives";
 
 class AdPreviews extends React.Component {
   state = {
@@ -48,7 +48,7 @@ class AdPreviews extends React.Component {
   async fetchiFrames(): Promise<void> {
     let selectedView = this.state.selectedViewOption;
     let adIdsArray = this.state.adIds;
-    let url = `http://platform.pearmill.com/tests/iframes?ad_ids=${adIdsArray}&format=${selectedView}`;
+    let url = `https://platform.pearmill.com/tests/iframes?ad_ids=${adIdsArray}&format=${selectedView}`;
 
     await fetch(url)
       .then((response) => response.json())
