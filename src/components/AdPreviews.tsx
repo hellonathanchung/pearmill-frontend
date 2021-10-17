@@ -18,13 +18,14 @@ class AdPreviews extends React.Component {
   };
 
   componentDidMount(): void {
+    this.setState({ adDataLoading: true });
     fetch(creativesData)
       .then((response) => response.json())
       .then((adCreativeData) => this.handleAdData(adCreativeData.data))
       .catch(function (error) {
         console.log(error);
       })
-      .finally(() => this.setState({ adDatingLoading: true }));
+      .finally(() => this.setState({ adDataLoading: false }));
   }
 
   onChangeValue(event: any) {
@@ -125,7 +126,9 @@ class AdPreviews extends React.Component {
               </table>
             ) : null}
           </div>
-        ) : null}
+        ) : (
+          <LoadingSpinner />
+        )}
         <h1>Please select a view</h1>
         <div className="view-select-container">
           <div
